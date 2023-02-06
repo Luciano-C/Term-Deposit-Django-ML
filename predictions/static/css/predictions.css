@@ -1,0 +1,22 @@
+:root {
+    --custom-gray:  #d0d3d4 ; 
+    --royal-blue: #5271ff;
+    --font-size-1: 1.5rem;
+    --font-size-2: 1.25rem;
+    --font-size-3: 1rem;
+  }
+
+  .bg-custom {
+    background-color: var(--custom-gray);
+  }
+
+
+  .navbar-font {
+    color:var(--royal-blue);
+    font-size: var(--font-size-2);
+  }
+
+  .navbar-image {
+    width: 8em;
+    height: 4em;
+  }
