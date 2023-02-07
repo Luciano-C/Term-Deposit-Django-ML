@@ -1,7 +1,7 @@
 {% load static %}
-<nav class="navbar navbar-expand-lg bg-custom ">
-    <div class="container">
-        <a class="navbar-brand" href="{% url 'home' %}">
+<nav class="navbar navbar-expand-lg bg-custom">
+    <div class="container-fluid mx-3">
+        <a class="navbar-brand p-0" href="{% url 'home' %}">
             <img src="{% static 'images/CapitalCall-banner.png' %}" alt="Navbar logo" class="navbar-image">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -11,29 +11,29 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
-                <li>
-                    <a class="nav-link navbar-font" href="#">Home</a>
+                <li class="nav-item">
+                    <a class="nav-link navbar-text" href="#">Home</a>
                 </li>
 
 
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link navbar-font" href="#">My Passwords</a>
+                    <a class="nav-link navbar-text" href="#">My Passwords</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link navbar-font" href="#">Create Password</a>
+                    <a class="nav-link navbar-text" href="#">Create Password</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link navbar-font" href="#">Logout</a>
+                    <a class="nav-link navbar-text" href="#">Logout</a>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link navbar-font" href="#">Sign up</a>
+                    <a class="nav-link navbar-text" href="#">Sign up</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link navbar-font" href="#">Sign in</a>
+                    <a class="nav-link navbar-text" href="#">Sign in</a>
                 </li>
                 {% endif %}
             </ul>

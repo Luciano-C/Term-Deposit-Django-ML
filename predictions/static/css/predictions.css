@@ -4,19 +4,40 @@
     --font-size-1: 1.5rem;
     --font-size-2: 1.25rem;
     --font-size-3: 1rem;
+    --font-size-4: 0.9rem;
+    --default-font-family: 'Libre Baskerville';
   }
 
   .bg-custom {
-    background-color: var(--custom-gray);
+    background-color: var(--custom-gray); 
   }
 
 
-  .navbar-font {
+  .navbar-text {
     color:var(--royal-blue);
     font-size: var(--font-size-2);
+    margin: 0 0 0 1em;
+    font-family: var(--default-font-family);
   }
 
   .navbar-image {
     width: 8em;
     height: 4em;
+  }
+
+  .navbar { 
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+
+
+  .home-background-title {
+    font-size: var(--font-size-1);
+    color:var(--royal-blue);
+    font-family: var(--default-font-family);
+  }
+
+  .home-custom-card-text {
+    font-family: var(--default-font-family);
+    font-size: var(--font-size-4);
   }
