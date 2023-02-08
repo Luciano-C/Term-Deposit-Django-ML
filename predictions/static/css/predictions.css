@@ -6,6 +6,7 @@
     --font-size-3: 1rem;
     --font-size-4: 0.9rem;
     --default-font-family: 'Libre Baskerville';
+    --flag-size: 2.5em;
   }
 
   .bg-custom {
@@ -40,4 +41,20 @@
   .home-custom-card-text {
     font-family: var(--default-font-family);
     font-size: var(--font-size-4);
+  }
+
+  .home-flag {
+    font-size: var(--flag-size);
+    margin: 0 0.2em 0 0.2em;
+  }
+
+
+  .home-economic-description {
+    font-family: var(--default-font-family);
+    color: var(--royal-blue)
+  }
+
+  .home-economic-value {
+    font-family: var(--default-font-family);
+    margin-left: 0.2em;
   }

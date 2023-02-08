@@ -9,10 +9,10 @@ def get_economic_indicators():
 
     table = soup.find_all("table")
     df_list =  pd.read_html(str(table))
-    # print(df_list[0])
+    #print(df_list[0])
     return {
-        'dolar': {'bid': df_list[0].loc[0, 'Compra'], 'ask': df_list[0].loc[0, 'Venta']},
-        'euro': {'bid': df_list[1].loc[0, 'Compra'], 'ask': df_list[1].loc[0, 'Venta']}
+        'dollar': {'bid': df_list[0].loc[0, 'Compra'], 'ask': df_list[0].loc[0, 'Venta']},
+        'euro': {'bid': df_list[0].loc[1, 'Compra'], 'ask': df_list[0].loc[1, 'Venta']}
     }
 
 
