@@ -10,3 +10,6 @@ def home(request):
         'euro_bid': economic_indicators['euro']['bid'],
         'euro_ask': economic_indicators['euro']['ask']
     })
+
+def read_more(request):
+    return render(request, 'read_more.html')

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="container text-center">
+    <div class="row">
+        <div class="col">
+            <section class="">
+
+                <h2 class="read-more-title">What is CapitalCall?</h2>
+                <p class="text-start read-more-paragraph">CapitalCall is an app that uses a machine learning model to
+                    analyze client data and make predictions about their likelihood of taking a term deposit. The model
+                    takes into account various factors such as demographic information, financial history, and previous
+                    banking behavior. By considering these factors, the model can accurately predict the likelihood of a
+                    client taking a term deposit when contacted.
+                </p>
+
+                <h2 class="read-more-title">Which model is used?</h2>
+                <p class="text-start read-more-paragraph">CapitalCall uses a Logistic Regression model, which is a type
+                    of statistical model used for binary classification problems, where the goal is to
+                    predict a binary outcome (e.g. yes/no, true/false, 1/0). <br>
+                    Logistic Regression models the relationship between the dependent variable and one or more
+                    independent variables by using a logistic function, also known as the sigmoid function. The logistic
+                    function maps any real-valued number to the range of 0 to 1, which can be interpreted as a
+                    probability. <br>
+
+                    In logistic regression, the parameters of the model are estimated using maximum likelihood
+                    estimation, which involves finding the values of the parameters that maximize the likelihood of
+                    observing the data given the model. Once the parameters have been estimated, the model can be used
+                    to make predictions for new data points. <br>
+
+                    One of the advantages of logistic regression is that it can handle both continuous and categorical
+                    independent variables. Additionally, it is easy to interpret the coefficients of the model, as they
+                    represent the change in the log-odds of the dependent variable for a unit change in the independent
+                    variable, holding all other variables constant. This makes logistic regression a useful tool for
+                    identifying the most important predictors of a binary outcome.
+                </p>
+
+                <h2 class="read-more-title">What kind of data was used for the training?</h2>
+                <p class="text-start read-more-paragraph">
+                    A bank dataset from a previous marketing campaign was used which contains the following:<br>
+                <p class="text-start read-more-paragraph"><strong>Client Data:</strong><br></p>
+                <ul class="text-start read-more-paragraph">
+                    <li>Age of the client</li>
+                    <li>Type of job</li>
+                    <li>Marital Status</li>
+                    <li>Education</li>
+                    <li>If they had credit on default</li>
+                    <li>Average yearly balance</li>
+                    <li>If the had a housing loan</li>
+                    <li>If the had a personal loan</li>
+                </ul>
+                <p class="text-start read-more-paragraph"><strong>Related to last contact:</strong><br></p>
+                <ul class="text-start read-more-paragraph">
+                    <li>Contact type (cell or telephone)</li>
+                    <li>Day of the contact</li>
+                    <li>Month of the contact</li>
+                    <li>Duration of the contact</li>
+                </ul>
+
+                <p class="text-start read-more-paragraph"><strong>Other atributes:</strong><br></p>
+                <ul class="text-start read-more-paragraph">
+                    <li>Number of contacts for the campaign for each client</li>
+                    <li>Number of days passed since the contact from a previous campaign</li>
+                    <li>Number of contacts performed before the campaign</li>
+                    <li>Outcome from the previous campaign</li>
+                    <li>Outcome of this campaign (target variable)</li>
+                </ul>
+
+                <h2 class="read-more-title">What is the model's performance and how is it measured?</h2>
+                <p class="text-start read-more-paragraph">
+                    The model selection and hyperparameters were selected using a grid search cross validation.<br>
+                    The model trainig and metrics are obtained using a train/test split and are the following: <br>
+                </p>
+                <ul class="text-start read-more-paragraph">
+                    <li><strong>Accuracy score:</strong> 79.3%</li>
+                    <li><strong>Precision score:</strong> 79.3%</li>
+                    <li><strong>Recall score:</strong> 79.4%</li>
+                    <li><strong>F1 score:</strong> 79.3%</li>
+                </ul>
+                
+
+            </section>
+
+        </div>
+    </div>
+
+</main>
+
+
+
+{% endblock %}

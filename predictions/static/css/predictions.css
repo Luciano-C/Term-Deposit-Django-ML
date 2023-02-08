@@ -51,10 +51,20 @@
 
   .home-economic-description {
     font-family: var(--default-font-family);
-    color: var(--royal-blue)
+    color: var(--royal-blue);
   }
 
   .home-economic-value {
     font-family: var(--default-font-family);
     margin-left: 0.2em;
+  }
+
+  .read-more-title {
+    font-family: var(--default-font-family);
+    color: var(--royal-blue);
+    margin-top: 1.5em;
+  }
+
+  .read-more-paragraph {
+    font-family: var(--default-font-family);
   }
