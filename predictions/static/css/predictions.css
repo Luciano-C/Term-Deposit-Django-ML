@@ -68,3 +68,18 @@
   .read-more-paragraph {
     font-family: var(--default-font-family);
   }
+
+  .signin-signup-title {
+    font-family: var(--default-font-family);
+    color: var(--royal-blue);
+  }
+
+  .signin-signup-label {
+    font-family: var(--default-font-family);
+  }
+
+  ::placeholder {
+    font-family: var(--default-font-family);
+  }
+
+  
