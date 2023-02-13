@@ -68,3 +68,29 @@ def single_prediction(request):
         return render(request, 'single_prediction.html', {
         'form': ClientForm
     })
+
+    else:
+       
+        form = ClientForm(request.POST)
+        
+        if form.is_valid():
+            new_client = form.save(commit=False)
+            new_client.user = request.user
+            new_client.save()
+           
+            try:
+                new_client.clean()
+            except ValueError as e:
+                return render(request, 'single_prediction.html', {
+                    'form': form,
+                    'errors': e.message_dict    
+                })
+        
+        else: 
+            return render(request, 'single_prediction.html', {
+                'form': form,
+                'errors': form.errors
+        })
+
+        
+            

@@ -116,6 +116,15 @@
                         <button class="btn btn-primary">Submit</button>
                     </div>
                 </div>
+
+                {% if errors %}
+                <p>You have the following errors:</p>
+                <ul>
+                    {% for field, error in errors.items %}
+                    <li>{{field}}: {{error}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
             </form>
         </div>
     </div>

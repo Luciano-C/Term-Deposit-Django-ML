@@ -27,13 +27,15 @@ binary_choices = [('yes', 'yes'), ('no', 'no')]
 def validate_day(day, month):
     if month == 'feb':
         if day > 29:
-            raise ValidationError('This month has a maximum of 29 days.')
-        elif month in ['apr', 'jun', 'sep', 'nov']:
-            if day > 30:
-                raise ValidationError('This month has a maximum of 30 days.')
-        else:
-            if day > 31:
-                raise ValidationError('This month has a maximum of 31 days.')
+            return'f{month} has a maximum of 29 days.'
+    elif month in ['apr', 'jun', 'sep', 'nov']:
+        if day > 30:
+            return f'{month} has a maximum of 30 days.'
+    else:
+        if day > 31:
+            return f'{month} has a maximum of 31 days.'
+    return None
+    
 
 
 
@@ -66,9 +68,17 @@ class Client(models.Model):
         return self.full_name
     
     def clean(self):
-        validate_day(self.day, self.month)
+        errors = {}
         if self.age < 18 or self.age > 100:
-            raise ValidationError({'Age must be higher than 18 and lower than 100'})
+            errors['age'] = 'Age must be higher than 18 and lower than 100.'
+        
+        day_error = validate_day(self.day, self.month)
+        if day_error:
+            errors['day'] = day_error
+        
+        if errors:
+            raise ValidationError(errors)
+        
 
 
     def save(self, *args, **kwargs):
