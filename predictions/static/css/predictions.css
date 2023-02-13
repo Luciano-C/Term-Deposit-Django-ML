@@ -86,4 +86,10 @@
     font-family: var(--default-font-family);
   }
 
+
+  .single-prediction-label {
+    font-family: var(--default-font-family);
+    font-size: var(--font-size-4);
+  }
+
   

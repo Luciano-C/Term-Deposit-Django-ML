@@ -1,8 +1,10 @@
 from django.db import models
 from authuser.models import User
 from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator, MinValueValidator 
 import pandas as pd
 from .utils.predictor import classification_function 
+
 
 # Getting the choices for categorical values from pickle file
 possible_choices = pd.read_pickle('model/pickle_files/form_input_data.pickle')
@@ -41,21 +43,21 @@ class Client(models.Model):
     age = models.IntegerField()
     job = models.CharField(max_length=100, choices=job_choices)
     marital = models.CharField(max_length=100, choices=marital_choices)
-    education = models.CharField(max_length=100, choices=education_choices, default='unknown')
-    default = models.CharField(max_length=3, choices=binary_choices, default='no')
-    balance = models.IntegerField(default=0)
-    housing = models.CharField(max_length=3, choices=binary_choices, default='no')
-    loan = models.CharField(max_length=3, choices=binary_choices, default='no')
-    contact = models.CharField(max_length=100, choices=contact_choices, default='unknown')
-    day = models.PositiveSmallIntegerField(default=1)
-    month = models.CharField(max_length=100, choices=month_choices, default='jan')
-    duration = models.IntegerField(default=1)
-    campaign = models.IntegerField(default=0)
-    pdays = models.IntegerField(default=0)
-    previous = models.IntegerField(default=0)
-    poutcome = models.CharField(max_length=100, choices=poutcome_choices, default='unknown')
+    education = models.CharField(max_length=100, choices=education_choices)
+    default = models.CharField(max_length=3, choices=binary_choices)
+    balance = models.IntegerField()
+    housing = models.CharField(max_length=3, choices=binary_choices)
+    loan = models.CharField(max_length=3, choices=binary_choices)
+    contact = models.CharField(max_length=100, choices=contact_choices)
+    day = models.PositiveSmallIntegerField()
+    month = models.CharField(max_length=100, choices=month_choices)
+    duration = models.IntegerField()
+    campaign = models.IntegerField()
+    pdays = models.IntegerField()
+    previous = models.IntegerField()
+    poutcome = models.CharField(max_length=100, choices=poutcome_choices)
     
-    outcome_target = models.CharField(max_length=3, choices=binary_choices, editable=False, default='no')
+    outcome_target = models.CharField(max_length=3, choices=binary_choices, editable=False)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
@@ -65,6 +67,9 @@ class Client(models.Model):
     
     def clean(self):
         validate_day(self.day, self.month)
+        if self.age < 18 or self.age > 100:
+            raise ValidationError({'Age must be higher than 18 and lower than 100'})
+
 
     def save(self, *args, **kwargs):
         # Add prediction function

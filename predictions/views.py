@@ -4,6 +4,7 @@ from authuser.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate 
 from django.db import IntegrityError
+from .forms import ClientForm
 
 
 # Create your views here.
@@ -60,3 +61,10 @@ def signout(request):
 
 def predictions(request):
     return render(request, 'predictions.html')
+
+
+def single_prediction(request):
+    if request.method == 'GET':
+        return render(request, 'single_prediction.html', {
+        'form': ClientForm
+    })
