@@ -80,6 +80,9 @@ def single_prediction(request):
            
             try:
                 new_client.clean()
+                return render(request, 'single_prediction.html', {
+                    'form': form   
+                })
             except ValueError as e:
                 return render(request, 'single_prediction.html', {
                     'form': form,
@@ -91,6 +94,8 @@ def single_prediction(request):
                 'form': form,
                 'errors': form.errors
         })
+ 
+        
 
         
-            
+        

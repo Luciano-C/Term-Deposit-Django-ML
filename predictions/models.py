@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator 
 import pandas as pd
 from .utils.predictor import classification_function 
+from .utils.form_validations import *
 
 
 # Getting the choices for categorical values from pickle file
@@ -24,18 +25,7 @@ binary_choices = [('yes', 'yes'), ('no', 'no')]
 
 
 
-def validate_day(day, month):
-    if month == 'feb':
-        if day > 29:
-            return'f{month} has a maximum of 29 days.'
-    elif month in ['apr', 'jun', 'sep', 'nov']:
-        if day > 30:
-            return f'{month} has a maximum of 30 days.'
-    else:
-        if day > 31:
-            return f'{month} has a maximum of 31 days.'
-    return None
-    
+
 
 
 
@@ -69,13 +59,31 @@ class Client(models.Model):
     
     def clean(self):
         errors = {}
-        if self.age < 18 or self.age > 100:
-            errors['age'] = 'Age must be higher than 18 and lower than 100.'
+        age_error = validate_age(self.age)
+        if age_error:
+            errors['age'] = age_error
         
         day_error = validate_day(self.day, self.month)
         if day_error:
             errors['day'] = day_error
         
+        
+        duration_error = validate_duration(self.duration)
+        if duration_error:
+            errors['duration'] = duration_error
+
+        campaign_error = validate_campaign(self.campaign)
+        if campaign_error:
+            errors['campaign'] = campaign_error
+
+        pdays_error = validate_pdays(self.pdays)
+        if pdays_error:
+            errors['pdays'] = pdays_error
+
+        previous_error = validate_previous(self.previous)
+        if previous_error:
+            errors['previous'] = previous_error
+
         if errors:
             raise ValidationError(errors)
         
