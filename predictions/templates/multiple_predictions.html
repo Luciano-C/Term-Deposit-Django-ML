@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            {% include 'partials/_navscroller.html' %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <form method="POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form}}
+                {{errors}}
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <button class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

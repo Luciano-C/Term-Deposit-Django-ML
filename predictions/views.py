@@ -4,7 +4,9 @@ from authuser.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate 
 from django.db import IntegrityError
-from .forms import ClientForm
+from .forms import ClientForm, UploadClientsForm
+from django.contrib import messages
+import pandas as pd
 
 
 # Create your views here.
@@ -80,6 +82,17 @@ def single_prediction(request):
            
             try:
                 new_client.clean()
+
+                if new_client.outcome_target == 'no':
+                    message_to_user = f'The client {new_client} is not likely to take a term deposit.'
+                    messages.error(request, message_to_user)
+                else:
+                    message_to_user = f'The client {new_client} is likely to take a term deposit.'
+                    messages.success(request, message_to_user)
+
+                print(new_client.outcome_target)
+
+
                 return render(request, 'single_prediction.html', {
                     'form': form   
                 })
@@ -98,4 +111,39 @@ def single_prediction(request):
         
 
         
+def multiple_predictions(request):
+    if request.method == 'GET':
+        return render(request, 'multiple_predictions.html', {
+            'form': UploadClientsForm
+        })
+    else:
+        form = UploadClientsForm(request.POST, request.FILES)
         
+        if form.is_valid():
+            file = request.FILES['file']
+            columns = pd.read_pickle('model/pickle_files/input_data_columns.pickle')
+            total_columns = ['full_name'] + columns
+            
+            clients_data_from_file = pd.read_csv(file, sep=';', encoding='utf-8', header=None)
+            
+
+            clients_data = pd.DataFrame(data=clients_data_from_file.values, columns=total_columns)
+            print(clients_data.head())
+
+
+
+            
+            #print(58 in clients_data.loc[:, 'age'])
+            
+            
+            
+            
+            
+            return render(request, 'multiple_predictions.html', {
+            'form': form
+        })
+        else:
+            return render(request, 'multiple_predictions.html', {
+            'form': UploadClientsForm,
+            'errors': form.errors['file']
+        })

@@ -5,6 +5,8 @@ import pandas as pd
 
 
 
+
+
 class ClientForm(forms.ModelForm):
     class Meta():
         model = Client
@@ -47,5 +49,23 @@ class ClientForm(forms.ModelForm):
             'poutcome': forms.Select(attrs={"class": "form-control mb-2"}),
         }
 
-
+class UploadClientsForm(forms.Form):
+    #file = forms.FileField(widget=forms.ClearableFileInput(attrs={'class': 'form-control mb-2'}))
+    file = forms.FileField(widget=forms.ClearableFileInput(attrs={'class': 'form-control mb-2 mt-3'}), label='')
+    
+    def clean_file(self):
+        file = self.cleaned_data.get('file')
+        ext = file.name.split('.')[-1].lower()
+        
+        # Validate if file is csv
+        if ext not in ['csv'] :
+            raise forms.ValidationError("Only CSV files are allowed.")
+        
+        # Validate if the separator character is ";"
+        # Read the first line of the file
+        first_line = file.readline().decode()
+        if ';' not in first_line:
+            raise forms.ValidationError("CSV file must use ';' as separator.")
+        
+        return file
   
