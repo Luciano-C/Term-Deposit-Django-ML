@@ -112,52 +112,74 @@ def single_prediction(request):
 def multiple_predictions(request):
     if request.method == 'GET':
         return render(request, 'multiple_predictions.html', {
-            'form': UploadClientsForm
+            'form': UploadClientsForm,
         })
     else:
         form = UploadClientsForm(request.POST, request.FILES)
+        try:
+            if form.is_valid():
+                # Gets file
+                file = request.FILES['file']
+                # Creates a variable for the columns of the dataframe
+                columns = pd.read_pickle('model/pickle_files/input_data_columns.pickle')
+                total_columns = ['full_name'] + columns
+                
+                # Load data from file into dataframe with the column names
+                clients_data_from_file = pd.read_csv(file, sep=';', encoding='utf-8', names=total_columns)
+                
+                #print(clients_data_from_file.head())
+                
+                # number_of_rows and predictions for itetarion
+                number_of_rows = clients_data_from_file.shape[0]
+                predictions = []
+
+                for row in range(number_of_rows):
+                    # Creates a record in database for each row in the dataframe
+                    new_client = Client.objects.create(
+                        full_name = clients_data_from_file.loc[row, 'full_name'],
+                        age = clients_data_from_file.loc[row, 'age'],
+                        job = clients_data_from_file.loc[row, 'job'],
+                        marital = clients_data_from_file.loc[row, 'marital'],
+                        education = clients_data_from_file.loc[row, 'education'],
+                        default = clients_data_from_file.loc[row, 'default'],
+                        balance = clients_data_from_file.loc[row, 'balance'],
+                        housing = clients_data_from_file.loc[row, 'housing'],
+                        loan = clients_data_from_file.loc[row, 'loan'],
+                        contact = clients_data_from_file.loc[row, 'contact'],
+                        day = clients_data_from_file.loc[row, 'day'],
+                        month = clients_data_from_file.loc[row, 'month'],
+                        duration = clients_data_from_file.loc[row, 'duration'],
+                        campaign = clients_data_from_file.loc[row, 'campaign'],
+                        pdays = clients_data_from_file.loc[row, 'pdays'],
+                        previous = clients_data_from_file.loc[row, 'previous'],
+                        poutcome = clients_data_from_file.loc[row, 'poutcome'],
+                        user = request.user
+                    )
+                    new_client.save()
+                    # Adds the prediction result, which will be used for the chart
+                    predictions.append(new_client.outcome_target)
+                
+                # Adds a column with the predictions to the dataframe
+                clients_data_from_file['predictions'] = predictions
+                # Prepares the data for the chart as a list with ['yes', 'no'] values
+                data_for_chart = [clients_data_from_file['predictions'].value_counts()['yes'], clients_data_from_file['predictions'].value_counts()['no']]
+                
+                return render(request, 'multiple_predictions.html', {
+                'form': form,
+                'data': data_for_chart
+            })
+
+            else:
+                return render(request, 'multiple_predictions.html', {
+                'form': UploadClientsForm,
+                'errors': form.errors['file']
+            })
+        except:
+            form.add_error('file', 'There is a problem with the file.')
+            return render(request, 'multiple_predictions.html', {
+                'form': UploadClientsForm,
+                'errors': form.errors['file']
+            })
         
-        if form.is_valid():
-            file = request.FILES['file']
-            columns = pd.read_pickle('model/pickle_files/input_data_columns.pickle')
-            total_columns = ['full_name'] + columns
-            
-            clients_data_from_file = pd.read_csv(file, sep=';', encoding='utf-8', names=total_columns)
-            
-            #print(clients_data_from_file.head())
-            number_of_rows = clients_data_from_file.shape[0]
 
-            for row in range(number_of_rows):
 
-                new_client = Client.objects.create(
-                    full_name = clients_data_from_file.loc[row, 'full_name'],
-                    age = clients_data_from_file.loc[row, 'age'],
-                    job = clients_data_from_file.loc[row, 'job'],
-                    marital = clients_data_from_file.loc[row, 'marital'],
-                    education = clients_data_from_file.loc[row, 'education'],
-                    default = clients_data_from_file.loc[row, 'default'],
-                    balance = clients_data_from_file.loc[row, 'balance'],
-                    housing = clients_data_from_file.loc[row, 'housing'],
-                    loan = clients_data_from_file.loc[row, 'loan'],
-                    contact = clients_data_from_file.loc[row, 'contact'],
-                    day = clients_data_from_file.loc[row, 'day'],
-                    month = clients_data_from_file.loc[row, 'month'],
-                    duration = clients_data_from_file.loc[row, 'duration'],
-                    campaign = clients_data_from_file.loc[row, 'campaign'],
-                    pdays = clients_data_from_file.loc[row, 'pdays'],
-                    previous = clients_data_from_file.loc[row, 'previous'],
-                    poutcome = clients_data_from_file.loc[row, 'poutcome'],
-                    user = request.user
-                )
-                new_client.save()
-
-                    
-            
-            return render(request, 'multiple_predictions.html', {
-            'form': form
-        })
-        else:
-            return render(request, 'multiple_predictions.html', {
-            'form': UploadClientsForm,
-            'errors': form.errors['file']
-        })

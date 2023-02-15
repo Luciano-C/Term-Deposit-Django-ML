@@ -4,9 +4,6 @@ import pandas as pd
 
 
 
-
-
-
 class ClientForm(forms.ModelForm):
     class Meta():
         model = Client
@@ -66,6 +63,13 @@ class UploadClientsForm(forms.Form):
         first_line = file.readline().decode()
         if ';' not in first_line:
             raise forms.ValidationError("CSV file must use ';' as separator.")
+               # Validate number of the columns in csv file
         
+        # Validate number of the columns in csv file
+        first_line_as_list = first_line.split(';')
+        if len(first_line_as_list) != 17:
+            raise forms.ValidationError("CSV file must have 17 columns.")
+
+
         return file
   
