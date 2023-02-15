@@ -6,6 +6,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from .forms import ClientForm, UploadClientsForm
 from django.contrib import messages
+from .models import Client
 import pandas as pd
 
 
@@ -90,9 +91,6 @@ def single_prediction(request):
                     message_to_user = f'The client {new_client} is likely to take a term deposit.'
                     messages.success(request, message_to_user)
 
-                print(new_client.outcome_target)
-
-
                 return render(request, 'single_prediction.html', {
                     'form': form   
                 })
@@ -124,20 +122,36 @@ def multiple_predictions(request):
             columns = pd.read_pickle('model/pickle_files/input_data_columns.pickle')
             total_columns = ['full_name'] + columns
             
-            clients_data_from_file = pd.read_csv(file, sep=';', encoding='utf-8', header=None)
+            clients_data_from_file = pd.read_csv(file, sep=';', encoding='utf-8', names=total_columns)
             
+            #print(clients_data_from_file.head())
+            number_of_rows = clients_data_from_file.shape[0]
 
-            clients_data = pd.DataFrame(data=clients_data_from_file.values, columns=total_columns)
-            print(clients_data.head())
+            for row in range(number_of_rows):
 
+                new_client = Client.objects.create(
+                    full_name = clients_data_from_file.loc[row, 'full_name'],
+                    age = clients_data_from_file.loc[row, 'age'],
+                    job = clients_data_from_file.loc[row, 'job'],
+                    marital = clients_data_from_file.loc[row, 'marital'],
+                    education = clients_data_from_file.loc[row, 'education'],
+                    default = clients_data_from_file.loc[row, 'default'],
+                    balance = clients_data_from_file.loc[row, 'balance'],
+                    housing = clients_data_from_file.loc[row, 'housing'],
+                    loan = clients_data_from_file.loc[row, 'loan'],
+                    contact = clients_data_from_file.loc[row, 'contact'],
+                    day = clients_data_from_file.loc[row, 'day'],
+                    month = clients_data_from_file.loc[row, 'month'],
+                    duration = clients_data_from_file.loc[row, 'duration'],
+                    campaign = clients_data_from_file.loc[row, 'campaign'],
+                    pdays = clients_data_from_file.loc[row, 'pdays'],
+                    previous = clients_data_from_file.loc[row, 'previous'],
+                    poutcome = clients_data_from_file.loc[row, 'poutcome'],
+                    user = request.user
+                )
+                new_client.save()
 
-
-            
-            #print(58 in clients_data.loc[:, 'age'])
-            
-            
-            
-            
+                    
             
             return render(request, 'multiple_predictions.html', {
             'form': form
