@@ -1,6 +1,6 @@
 from django import forms
 from .models import Client
-import pandas as pd
+
 
 
 

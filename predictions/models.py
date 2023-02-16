@@ -5,6 +5,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 import pandas as pd
 from .utils.predictor import classification_function 
 from .utils.form_validations import *
+from django.utils import timezone
 
 
 # Getting the choices for categorical values from pickle file
@@ -50,6 +51,9 @@ class Client(models.Model):
     poutcome = models.CharField(max_length=100, choices=poutcome_choices)
     
     outcome_target = models.CharField(max_length=3, choices=binary_choices, editable=False)
+    
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 

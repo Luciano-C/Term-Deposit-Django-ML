@@ -26,9 +26,9 @@
 {% if data %}
 <div class="row mt-3">
     <div class="col-md-6 offset-md-3">
-        <canvas id="predictionChart">
+        <canvas id="multiplePredictionsChart">
             <script>
-                var ctx = document.getElementById('predictionChart').getContext('2d');
+                var ctx = document.getElementById('multiplePredictionsChart').getContext('2d');
                 var data = JSON.parse('{{data|escapejs}}')
                 var myChart = new Chart(ctx, {
                     type: 'bar',
@@ -52,7 +52,10 @@
                     options: {
                         scales: {
                             y: {
-                                beginAtZero: true
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1
+                                }
                             }
                         }
                     }

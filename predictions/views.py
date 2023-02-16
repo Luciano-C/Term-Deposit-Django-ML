@@ -183,3 +183,8 @@ def multiple_predictions(request):
         
 
 
+def my_predictions(request):
+    user_clients = Client.objects.filter(user=request.user)
+    return render(request, 'my_predictions.html', {
+        'user_clients': user_clients
+    })

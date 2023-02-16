@@ -1,127 +1,136 @@
 :root {
-    --custom-gray:  #d0d3d4 ; 
-    --royal-blue: #5271ff;
-    --font-size-1: 1.5rem;
-    --font-size-2: 1.25rem;
-    --font-size-3: 1rem;
-    --font-size-4: 0.9rem;
-    --font-size-5: 0.75rem;
-    --default-font-family: 'Libre Baskerville';
-    --flag-size: 2.5em;
-  }
+  --custom-gray: #d0d3d4;
+  --royal-blue: #5271ff;
+  --font-size-1: 1.5rem;
+  --font-size-2: 1.25rem;
+  --font-size-3: 1rem;
+  --font-size-4: 0.9rem;
+  --font-size-5: 0.75rem;
+  --default-font-family: 'Libre Baskerville';
+  --flag-size: 2.5em;
+}
 
-  .bg-custom {
-    background-color: var(--custom-gray); 
-  }
-
-
-  .navbar-text {
-    color:var(--royal-blue);
-    font-size: var(--font-size-2);
-    margin: 0 0 0 1em;
-    font-family: var(--default-font-family);
-  }
-
-  .navbar-image {
-    width: 8em;
-    height: 4em;
-  }
-
-  .navbar { 
-    padding-bottom: 0;
-    padding-top: 0;
-  }
+.bg-custom {
+  background-color: var(--custom-gray);
+}
 
 
-  .home-background-title {
-    font-size: var(--font-size-1);
-    color:var(--royal-blue);
-    font-family: var(--default-font-family);
-  }
+.navbar-text {
+  color: var(--royal-blue);
+  font-size: var(--font-size-2);
+  margin: 0 0 0 1em;
+  font-family: var(--default-font-family);
+}
 
-  .home-custom-card-text {
-    font-family: var(--default-font-family);
-    font-size: var(--font-size-4);
-  }
+.navbar-image {
+  width: 8em;
+  height: 4em;
+}
 
-  .home-flag {
-    font-size: var(--flag-size);
-    margin: 0 0.2em 0 0.2em;
-  }
-
-
-  .home-economic-description {
-    font-family: var(--default-font-family);
-    color: var(--royal-blue);
-  }
-
-  .home-economic-value {
-    font-family: var(--default-font-family);
-    margin-left: 0.2em;
-  }
-
-  .read-more-title {
-    font-family: var(--default-font-family);
-    color: var(--royal-blue);
-    margin-top: 1.5em;
-  }
-
-  .read-more-paragraph {
-    font-family: var(--default-font-family);
-  }
-
-  .signin-signup-title {
-    font-family: var(--default-font-family);
-    color: var(--royal-blue);
-  }
-
-  .signin-signup-label {
-    font-family: var(--default-font-family);
-  }
-
-  ::placeholder {
-    font-family: var(--default-font-family);
-  }
-
-  .navscroller-link {
-    font-family: var(--default-font-family);
-  }
+.navbar {
+  padding-bottom: 0;
+  padding-top: 0;
+}
 
 
-  .single-prediction-label {
-    font-family: var(--default-font-family);
-    font-size: var(--font-size-4);
-  }
+.home-background-title {
+  font-size: var(--font-size-1);
+  color: var(--royal-blue);
+  font-family: var(--default-font-family);
+}
 
-  /* Class that comes with Django form errors for single_prediction view */
-  .errorlist {
-    list-style-type: none;
-    padding: 0;
-    font-style: italic;
-    font-size: var(--font-size-5);
-    color: red;
-  }
+.home-custom-card-text {
+  font-family: var(--default-font-family);
+  font-size: var(--font-size-4);
+}
+
+.home-flag {
+  font-size: var(--flag-size);
+  margin: 0 0.2em 0 0.2em;
+}
+
+
+.home-economic-description {
+  font-family: var(--default-font-family);
+  color: var(--royal-blue);
+}
+
+.home-economic-value {
+  font-family: var(--default-font-family);
+  margin-left: 0.2em;
+}
+
+.read-more-title {
+  font-family: var(--default-font-family);
+  color: var(--royal-blue);
+  margin-top: 1.5em;
+}
+
+.read-more-paragraph {
+  font-family: var(--default-font-family);
+}
+
+.signin-signup-title {
+  font-family: var(--default-font-family);
+  color: var(--royal-blue);
+}
+
+.signin-signup-label {
+  font-family: var(--default-font-family);
+}
+
+::placeholder {
+  font-family: var(--default-font-family);
+}
+
+.navscroller-link {
+  font-family: var(--default-font-family);
+}
+
+
+.single-prediction-label {
+  font-family: var(--default-font-family);
+  font-size: var(--font-size-4);
+}
+
+/* Class that comes with Django form errors for single_prediction view */
+.errorlist {
+  list-style-type: none;
+  padding: 0;
+  font-style: italic;
+  font-size: var(--font-size-5);
+  color: red;
+}
 
 /* For the messages framework on single_predictions view */
-  .messages li {
-    display: flex;
-    justify-content: space-between;
-  }
+.messages li {
+  display: flex;
+  justify-content: space-between;
+}
 
-  .close {
-    color: black;
-    font-size: 1.3rem;
-    font-weight: bold;
-    line-height: 1;
-    opacity: 0.5;
-    text-shadow: none;
-  }
-  
-  .close:hover {
-    color: #fff;
-    opacity: 0.75;
-  }
+.close {
+  color: black;
+  font-size: 1.3rem;
+  font-weight: bold;
+  line-height: 1;
+  opacity: 0.5;
+  text-shadow: none;
+}
 
-  
+.close:hover {
+  color: #fff;
+  opacity: 0.75;
+}
 
-  
+
+.clients-table {
+  border: solid var(--royal-blue) 1px;
+}
+
+.my-predictions-table-header {
+  background-color: var(--royal-blue);
+  font-family: var(--default-font-family);
+  color: white;
+  font-size: var(--font-size-4);
+
+}
