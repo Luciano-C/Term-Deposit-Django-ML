@@ -188,3 +188,33 @@ def my_predictions(request):
     return render(request, 'my_predictions.html', {
         'user_clients': user_clients
     })
+
+
+def edit_delete(request, client_id):
+    if request.method == 'GET':
+        client = get_object_or_404(Client, pk=client_id, user=request.user)
+        form = ClientForm(instance=client)
+
+        return render(request, 'edit_delete.html', {
+            'client': client,
+            'form': form
+        })
+    
+    elif request.method == 'POST':
+        if request.POST.get('_method') == 'PUT':
+            try:
+                client = get_object_or_404(Client, pk=client_id, user=request.user)
+                form = ClientForm(request.POST.copy(), instance=client)
+                form.save()
+                return redirect('my_predictions')
+            except ValueError:
+                form = ClientForm(request.POST.copy(), instance=client)
+                return render(request, 'edit_delete.html', {
+                    'form': form,
+                    'errors': form.errors
+                })
+        else:
+            # Handle other POST requests here
+            pass
+
+

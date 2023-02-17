@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            {% include 'partials/_navscroller.html' %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 offset-md-1 d-flex align-items-center justify-content-center">
+
+            <form action="" method="POST">
+                {% csrf_token %}
+                <!-- Method spoofing due to PUT request not being a standard http request method -->
+                <input type="hidden" name="_method" value="PUT" id="methodChanger">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="full_name" class="form-label single-prediction-label">Full Name</label>
+                        {{form.full_name}}
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="age" class="form-label single-prediction-label">Age</label>
+                        {{form.age}}
+                        {{errors.age}}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="job" class="form-label single-prediction-label">Job</label>
+                        {{form.job}}
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="marital" class="form-label single-prediction-label">Marital Status</label>
+                        {{form.marital}}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="education" class="form-label single-prediction-label">Education</label>
+                        {{form.education}}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="default" class="form-label single-prediction-label">Has Credit in Default?</label>
+                        {{form.default}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="balance" class="form-label single-prediction-label">Avg Yearly Balance (EUR)</label>
+                        {{form.balance}}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="housing" class="form-label single-prediction-label">Has a Housing Loan?</label>
+                        {{form.housing}}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="loan" class="form-label single-prediction-label">Has a Personal Loan?</label>
+                        {{form.loan}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="contact" class="form-label single-prediction-label">Contact</label>
+                        {{form.contact}}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="day" class="form-label single-prediction-label">Last Contact Day</label>
+                        {{form.day}}
+                        {{errors.day}}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="month" class="form-label single-prediction-label">Last Contact Month</label>
+                        {{form.month}}
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="duration" class="form-label single-prediction-label">Last Contact Duration
+                            (sec)</label>
+                        {{form.duration}}
+                        {{errors.duration}}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="campaign" class="form-label single-prediction-label">Number of Contacts</label>
+                        {{form.campaign}}
+                        {{errors.campaign}}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="pdays" class="form-label single-prediction-label">Days After Last Contact</label>
+                        {{form.pdays}}
+                        {{errors.pdays}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="previous" class="form-label single-prediction-label">Number of Contacts
+                            Before</label>
+                        {{form.previous}}
+                        {{errors.previous}}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="poutcome" class="form-label single-prediction-label">Previous Outcome</label>
+                        {{form.poutcome}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary mx-1">Edit</button>
+                        <button type="button" class="btn btn-primary mx-1">Delete</button>
+                    </div>
+                </div>
+            </form>
+            
+                {% csrf_token %}
+                
+            
+
+        </div>
+    </div>
+</div>
+{% endblock %}
