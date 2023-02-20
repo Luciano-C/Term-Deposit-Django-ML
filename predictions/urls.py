@@ -12,5 +12,6 @@ urlpatterns = [
     path("single_prediction/", single_prediction, name="single_prediction"),
     path("multiple_predictions/", multiple_predictions, name="multiple_predictions"),
     path("my_predictions/", my_predictions, name="my_predictions"),
-    path("edit_delete/<int:client_id>", edit_delete, name="edit_delete")
+    path("manage_client/<int:client_id>", manage_client, name="manage_client"),
+    path("search_clients/", search_clients, name="search_clients")
 ]

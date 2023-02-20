@@ -8,6 +8,7 @@ from .forms import ClientForm, UploadClientsForm
 from django.contrib import messages
 from .models import Client
 import pandas as pd
+from datetime import datetime
 
 
 # Create your views here.
@@ -190,12 +191,12 @@ def my_predictions(request):
     })
 
 
-def edit_delete(request, client_id):
+def manage_client(request, client_id):
     if request.method == 'GET':
         client = get_object_or_404(Client, pk=client_id, user=request.user)
         form = ClientForm(instance=client)
 
-        return render(request, 'edit_delete.html', {
+        return render(request, 'manage_client.html', {
             'client': client,
             'form': form
         })
@@ -209,12 +210,45 @@ def edit_delete(request, client_id):
                 return redirect('my_predictions')
             except ValueError:
                 form = ClientForm(request.POST.copy(), instance=client)
-                return render(request, 'edit_delete.html', {
+                return render(request, 'manage_client.html', {
                     'form': form,
                     'errors': form.errors
                 })
         else:
             # Handle other POST requests here
-            pass
+            client = get_object_or_404(Client, pk=client_id, user=request.user)
+            client.delete()
+            return redirect('my_predictions')
 
 
+def search_clients(request):
+    clients = Client.objects.filter(user=request.user)
+    print(request.GET)
+    print(request.GET['name-search'])
+    
+    if request.method == 'GET':
+    
+        if request.GET['name-search']:
+            name_search = request.GET['name-search']
+            clients = clients.filter(full_name__icontains=name_search)
+        if request.GET['outcome-search']:
+            outcome_search = request.GET['outcome-search']
+            clients = clients.filter(outcome_target__icontains=outcome_search)
+        if request.GET['date-search']:
+            date_search = request.GET['date-search']
+            formatted_date = datetime.strptime(date_search, '%Y-%m-%d')
+            start_date = formatted_date
+            end_date = formatted_date.replace(hour=23, minute=59, second=59)
+            clients = clients.filter(updated_at__range=[start_date, end_date])
+
+            
+            #formatted_date = datetime.strptime(date_search, '%Y-%m-%d').strftime('%d-%m-%Y')
+              
+            
+        return render(request,'my_predictions.html', {
+        'user_clients': clients,
+        'name_search_value': request.GET['name-search'],
+        'outcome_search_value': request.GET['outcome-search']
+    })
+  
+   

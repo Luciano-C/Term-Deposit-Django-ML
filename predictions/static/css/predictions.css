@@ -134,3 +134,7 @@
   font-size: var(--font-size-4);
 
 }
+
+.form-button {
+  width: 7em;
+}

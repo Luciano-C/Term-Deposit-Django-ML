@@ -3,8 +3,41 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-        <div class="col">
-            <div class="table-responsive overflow-auto">
+        <div class="col-md-10 offset-md-1">
+            {% include 'partials/_navscroller.html' %}
+        </div>
+    </div>
+    <div class="row">
+        <form action="{% url 'search_clients' %}" method="GET">
+
+            <div class="d-flex justify-content-around">
+                <div class="col-sm-3">
+                    <label for="name-search" class="form-label">Search by name:</label>
+                    <input type="text" name="name-search" id="name-search" class="form-control my-2"
+                        placeholder="Search by name" value="{{name_search_value}}">
+                </div>
+                <div class="col-sm-3">
+                    <label for="outcome-search" class="form-label">Search based on subscription:</label>
+                    <input type="text" name="outcome-search" id="outcome-search" class="form-control my-2"
+                        placeholder="Search based on subscription" value="{{outcome_search_value}}">
+                </div>
+                <div class="col-sm-3">
+                    <label for="date-search" class="form-label">Search by date:</label>
+                    <input type="date" name="date-search" id="date-search" class="form-control my-2"
+                        placeholder="Search by date">
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-2">
+                <button class="btn btn-primary mx-3 form-button">Search</button>
+                <a href="{% url 'my_predictions' %}" class="btn btn-secondary mx-3 form-button">Reset</a>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="table-responsive overflow-auto mt-3">
                 <table class="table table-bordered table-hover mt-3 clients-table">
                     <thead class="my-predictions-table-header text-center">
                         <tr>
@@ -22,15 +55,16 @@
                             <th scope="col">Loan</th>
                             <th scope="col">Contact</th>
 
-                            
-                            
+
+
                             <!-- <th scope="col" style="width:15%;">Actions</th> -->
                         </tr>
                     </thead>
                     <tbody class="text-center">
                         {% for client in user_clients %}
                         <tr class="{% cycle 'table-primary' 'table-secondary' %}">
-                            <td><a href="{% url 'edit_delete' client.id %}" class="btn py-0"><i class="fas fa-external-link"></i></a></td>
+                            <td><a href="{% url 'manage_client' client.id %}" class="btn py-0"><i
+                                        class="fas fa-external-link"></i></a></td>
                             <td>{{client.full_name}}</td>
                             <td>{{client.outcome_target|capfirst}}</td>
                             <td>{{client.updated_at|date:'d-m-Y'}}</td>
@@ -44,24 +78,21 @@
                             <td>{{client.loan|capfirst}}</td>
                             <td>{{client.contact|capfirst}}</td>
 
-
-
-
-                                
-                            
-
-                            
-                            
-             
                         </tr>
                         {% endfor %}
-    
+
                     </tbody>
                 </table>
             </div>
+
         </div>
     </div>
 </div>
+
+
+
+
+
 
 
 {% endblock %}

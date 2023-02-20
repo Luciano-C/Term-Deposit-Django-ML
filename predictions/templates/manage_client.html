@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-10 offset-md-1 d-flex align-items-center justify-content-center">
 
-            <form action="" method="POST">
+            <form action="" method="POST" id="clientForm">
                 {% csrf_token %}
                 <!-- Method spoofing due to PUT request not being a standard http request method -->
                 <input type="hidden" name="_method" value="PUT" id="methodChanger">
@@ -124,8 +124,9 @@
 
                 <div class="row">
                     <div class="col d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary mx-1">Edit</button>
-                        <button type="button" class="btn btn-primary mx-1">Delete</button>
+                        <a href="{% url 'my_predictions' %}" class="btn btn-success mx-3 mt-3 form-button">Back</a>
+                        <button type="submit" class="btn btn-primary mx-3 mt-3 form-button">Edit</button>
+                        <button type="button" class="btn btn-danger mx-3 mt-3 form-button" id="deleteButton">Delete</button>
                     </div>
                 </div>
             </form>
@@ -137,4 +138,5 @@
         </div>
     </div>
 </div>
+<script src="{% static 'js/deleteClient.js' %}"></script>
 {% endblock %}

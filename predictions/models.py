@@ -8,6 +8,7 @@ from .utils.form_validations import *
 from django.utils import timezone
 
 
+
 # Getting the choices for categorical values from pickle file
 possible_choices = pd.read_pickle('model/pickle_files/form_input_data.pickle')
 column_names = pd.read_pickle('model/pickle_files/input_data_columns.pickle')
@@ -53,7 +54,9 @@ class Client(models.Model):
     outcome_target = models.CharField(max_length=3, choices=binary_choices, editable=False)
     
     created_at = models.DateTimeField(default=timezone.now)
-    updated_at = models.DateTimeField(auto_now=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True) 
+
+   
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
