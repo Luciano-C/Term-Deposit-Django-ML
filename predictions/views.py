@@ -9,6 +9,7 @@ from django.contrib import messages
 from .models import Client
 import pandas as pd
 from datetime import datetime
+import numpy as np
 
 
 # Create your views here.
@@ -249,6 +250,38 @@ def search_clients(request):
         'user_clients': clients,
         'name_search_value': request.GET['name-search'],
         'outcome_search_value': request.GET['outcome-search']
+    })
+
+
+def charts(request):
+    # Age Chart
+    age_bins = np.arange(0, 110, 10)
+    age_labels = np.arange(10, 110, 10)
+    
+    yes_clients = Client.objects.filter(user=request.user, outcome_target='yes')
+    yes_ages = [client.age for client in yes_clients]
+    yes_df = pd.DataFrame(yes_ages, columns=['age'])
+    yes_df['label'] = pd.cut(x = yes_df['age'], bins=age_bins, labels=age_labels, include_lowest=True)
+    yes_count = yes_df['label'].value_counts().sort_index()
+
+
+    no_clients = Client.objects.filter(user=request.user, outcome_target='no')
+    no_ages = [client.age for client in no_clients]
+    no_df = pd.DataFrame(no_ages, columns=['age'])
+    no_df['label'] = pd.cut(x = no_df['age'], bins=age_bins, labels=age_labels, include_lowest=True)
+    no_count = no_df['label'].value_counts().sort_index()
+    
+    
+
+    
+    
+
+    
+    
+    return render(request, 'charts.html',{
+        'age_labels': list(age_labels),
+        'age_yes_count': list(yes_count.values),
+        'age_no_count': list(no_count.values)
     })
   
    
