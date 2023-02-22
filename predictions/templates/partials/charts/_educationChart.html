@@ -1,0 +1,55 @@
+<canvas id="educationChart">
+    <script>
+        var ctx = document.getElementById('educationChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: JSON.parse('{{education_labels|escapejs}}'),
+                datasets: [{
+                    label: 'Will Subscribe',
+                    data: JSON.parse('{{education_yes_count|escapejs}}'),
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                    ],
+                    borderWidth: 1,
+                    stack: 'Stack 0'
+
+                },
+                {
+                    label: 'Will Not Subscribe',
+                    data: JSON.parse('{{education_no_count|escapejs}}'),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1,
+                    stack: 'Stack 0'
+
+                }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        },
+                    },
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Education'
+                    },
+                }
+
+            }
+        });
+    </script>
+</canvas>

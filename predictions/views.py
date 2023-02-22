@@ -10,6 +10,8 @@ from .models import Client
 import pandas as pd
 from datetime import datetime
 import numpy as np
+from .utils.chart_data import get_numeric_chart_data, get_categorical_chart_data
+import json
 
 
 # Create your views here.
@@ -254,34 +256,93 @@ def search_clients(request):
 
 
 def charts(request):
-    # Age Chart
-    age_bins = np.arange(0, 110, 10)
-    age_labels = np.arange(10, 110, 10)
+    total_clients = Client.objects.filter(user=request.user)
     
-    yes_clients = Client.objects.filter(user=request.user, outcome_target='yes')
-    yes_ages = [client.age for client in yes_clients]
-    yes_df = pd.DataFrame(yes_ages, columns=['age'])
-    yes_df['label'] = pd.cut(x = yes_df['age'], bins=age_bins, labels=age_labels, include_lowest=True)
-    yes_count = yes_df['label'].value_counts().sort_index()
+    # Months are ordered accordingly before being sent to the charts
+    month_order = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+    if len(total_clients) > 2:
+        months_labels = get_categorical_chart_data(total_clients, 'month')['labels']
+        ordered_month_labels = sorted(months_labels, key=lambda x: month_order.index(x))
+    else:
+        ordered_month_labels = month_order
 
-
-    no_clients = Client.objects.filter(user=request.user, outcome_target='no')
-    no_ages = [client.age for client in no_clients]
-    no_df = pd.DataFrame(no_ages, columns=['age'])
-    no_df['label'] = pd.cut(x = no_df['age'], bins=age_bins, labels=age_labels, include_lowest=True)
-    no_count = no_df['label'].value_counts().sort_index()
+    # Something JSON.parse on the template wasn't working with the list os strings, so the list is serialized as a JSON formatted string
+    # with json.dumps
     
-    
-
-    
-    
-
-    
-    
+   
     return render(request, 'charts.html',{
-        'age_labels': list(age_labels),
-        'age_yes_count': list(yes_count.values),
-        'age_no_count': list(no_count.values)
+        # age
+        'age_labels': get_numeric_chart_data(total_clients, 'age')['labels'],
+        'age_yes_count': get_numeric_chart_data(total_clients, 'age')['attribute_yes_count'],
+        'age_no_count': get_numeric_chart_data(total_clients, 'age')['attribute_no_count'],
+        # job
+        'job_labels': json.dumps(get_categorical_chart_data(total_clients, 'job')['labels']),
+        'job_yes_count':  get_categorical_chart_data(total_clients, 'job')['attribute_yes_count'],
+        'job_no_count':  get_categorical_chart_data(total_clients, 'job')['attribute_no_count'],
+        # marital
+        'marital_labels': json.dumps(get_categorical_chart_data(total_clients, 'marital')['labels']),
+        'marital_yes_count':  get_categorical_chart_data(total_clients, 'marital')['attribute_yes_count'],
+        'marital_no_count':  get_categorical_chart_data(total_clients, 'marital')['attribute_no_count'],
+        # education
+        'education_labels': json.dumps(get_categorical_chart_data(total_clients, 'education')['labels']),
+        'education_yes_count':  get_categorical_chart_data(total_clients, 'education')['attribute_yes_count'],
+        'education_no_count':  get_categorical_chart_data(total_clients, 'education')['attribute_no_count'],
+        # default
+        'default_labels': json.dumps(get_categorical_chart_data(total_clients, 'default')['labels']),
+        'default_yes_count':  get_categorical_chart_data(total_clients, 'default')['attribute_yes_count'],
+        'default_no_count':  get_categorical_chart_data(total_clients, 'default')['attribute_no_count'],
+        # balance
+        'balance_labels': get_numeric_chart_data(total_clients, 'balance', decimals=1)['labels'],
+        'balance_yes_count': get_numeric_chart_data(total_clients, 'balance', decimals=1)['attribute_yes_count'],
+        'balance_no_count': get_numeric_chart_data(total_clients, 'balance', decimals=1)['attribute_no_count'],
+        # housing
+        'housing_labels': json.dumps(get_categorical_chart_data(total_clients, 'housing')['labels']),
+        'housing_yes_count':  get_categorical_chart_data(total_clients, 'housing')['attribute_yes_count'],
+        'housing_no_count':  get_categorical_chart_data(total_clients, 'housing')['attribute_no_count'],
+        # loan
+        'loan_labels': json.dumps(get_categorical_chart_data(total_clients, 'loan')['labels']),
+        'loan_yes_count':  get_categorical_chart_data(total_clients, 'loan')['attribute_yes_count'],
+        'loan_no_count':  get_categorical_chart_data(total_clients, 'loan')['attribute_no_count'],
+        # contact
+        'contact_labels': json.dumps(get_categorical_chart_data(total_clients, 'contact')['labels']),
+        'contact_yes_count':  get_categorical_chart_data(total_clients, 'contact')['attribute_yes_count'],
+        'contact_no_count':  get_categorical_chart_data(total_clients, 'contact')['attribute_no_count'],
+        # days (plotted as categorical)
+        'day_labels': get_categorical_chart_data(total_clients, 'day')['labels'],
+        'day_yes_count': get_categorical_chart_data(total_clients, 'day')['attribute_yes_count'],
+        'day_no_count': get_categorical_chart_data(total_clients, 'day')['attribute_no_count'],
+        # month
+        'month_labels': json.dumps(ordered_month_labels),
+        'month_yes_count': get_categorical_chart_data(total_clients, 'month')['attribute_yes_count'],
+        'month_no_count': get_categorical_chart_data(total_clients, 'month')['attribute_no_count'],
+        # duration
+        'duration_labels': get_numeric_chart_data(total_clients, 'duration')['labels'],
+        'duration_yes_count': get_numeric_chart_data(total_clients, 'duration')['attribute_yes_count'],
+        'duration_no_count': get_numeric_chart_data(total_clients, 'duration')['attribute_no_count'],
+        # campaign (plotted as categorical)
+        'campaign_labels': get_categorical_chart_data(total_clients, 'campaign')['labels'],
+        'campaign_yes_count': get_categorical_chart_data(total_clients, 'campaign')['attribute_yes_count'],
+        'campaign_no_count': get_categorical_chart_data(total_clients, 'campaign')['attribute_no_count'],
+        # pdays
+        'pdays_labels': get_categorical_chart_data(total_clients, 'pdays')['labels'],
+        'pdays_yes_count': get_categorical_chart_data(total_clients, 'pdays')['attribute_yes_count'],
+        'pdays_no_count': get_categorical_chart_data(total_clients, 'pdays')['attribute_no_count'],
+        # previous (plotted as categorical)
+        'previous_labels': get_categorical_chart_data(total_clients, 'previous')['labels'],
+        'previous_yes_count': get_categorical_chart_data(total_clients, 'previous')['attribute_yes_count'],
+        'previous_no_count': get_categorical_chart_data(total_clients, 'previous')['attribute_no_count'],
+        # poutcome
+        'poutcome_labels': json.dumps(get_categorical_chart_data(total_clients, 'poutcome')['labels']),
+        'poutcome_yes_count': get_categorical_chart_data(total_clients, 'poutcome')['attribute_yes_count'],
+        'poutcome_no_count': get_categorical_chart_data(total_clients, 'poutcome')['attribute_no_count'],
     })
+    
+
+    
+    
+
+    
+    
+    
   
    

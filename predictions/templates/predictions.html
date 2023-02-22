@@ -7,30 +7,96 @@
             {% include 'partials/_navscroller.html' %}
         </div>
     </div>
+
+    <div class="row">
+        <div class="col">
+            <section class="text-center">
+
+                <h2 class="read-more-title">Predictions</h2>
+                <p class="text-start read-more-paragraph">Welcome to the predictions view. Here we have the following tools at your disposal:</p>
+                <ul class="text-start read-more-paragraph">
+                    <li>Single Prediction</li>
+                    <li>Multiple Predictions</li>
+                    <li>My Predictions</li>
+                    <li>Charts</li>
+                </ul>
+                <p class="text-start read-more-paragraph">Below you will find a more detailed explanation about these and how to use them.</p>
+
+                <h2 class="read-more-title">Single Prediction</h2>
+                <p class="text-start read-more-paragraph">You will find a form that will allow you to input the necessary data for the model to make a prediction. You will see the result in a flash message and this data will be automatically added to the database. <br>
+                    Some details about the input fields:
+                </p>
+                <ul class="text-start read-more-paragraph">
+                    <li>Full Name: Text</li>
+                    <li>Age of the client: Numeric. Must be between 18 and 100.</li>
+                    <li>Type of job: Select input.</li>
+                    <li>Marital Status: Select input.</li>
+                    <li>Education: Select input.</li>
+                    <li>Has Credit in Default?: : Select input.</li>
+                    <li>Average yearly balance: Numeric, in EUR.</li>
+                    <li>Has a housing loan?: Select input.</li>
+                    <li>Has a personal loan?: Select input.</li>
+                    <li>Contact type: Select input.</li>
+                    <li>Last Contact Day: Last day of the month the client was contacted. Numeric. Must be between 1 and 31.</li>
+                    <li>Month of the contact: Last month the client was contacted. Select input.</li>
+                    <li>Duration of the contact: Numeric, in seconds.</li>
+                    <li>Number of contacts: For the current campaign. Numeric.</li>
+                    <li>Days After Last Contact: Number of days passed since the contact from a previous campaign. <strong>-1 means the client wasn't contacted on a previous campaign.</strong> Numeric.</li>
+                    <li>Number of Contacts Before: Number of contacts performed before the current campaign. Numeric.</li>
+                    <li>Previous Outcome: Outcome from the previous campaign. Select input.</li>
+                </ul>
+
+                <!-- CONTINUE EDITING -->
+
+                <h2 class="read-more-title">What kind of data was used for the training?</h2>
+                <p class="text-start read-more-paragraph">
+                    A bank dataset from a previous marketing campaign was used which contains the following:<br>
+                <p class="text-start read-more-paragraph"><strong>Client Data:</strong><br></p>
+                <ul class="text-start read-more-paragraph">
+                    <li>Age of the client</li>
+                    <li>Type of job</li>
+                    <li>Marital Status</li>
+                    <li>Education</li>
+                    <li>If they had credit on default</li>
+                    <li>Average yearly balance</li>
+                    <li>If the had a housing loan</li>
+                    <li>If the had a personal loan</li>
+                </ul>
+                <p class="text-start read-more-paragraph"><strong>Related to last contact:</strong><br></p>
+                <ul class="text-start read-more-paragraph">
+                    <li>Contact type (cell or telephone)</li>
+                    <li>Day of the contact</li>
+                    <li>Month of the contact</li>
+                    <li>Duration of the contact</li>
+                </ul>
+
+                <p class="text-start read-more-paragraph"><strong>Other atributes:</strong><br></p>
+                <ul class="text-start read-more-paragraph">
+                    <li>Number of contacts for the campaign for each client</li>
+                    <li>Number of days passed since the contact from a previous campaign</li>
+                    <li>Number of contacts performed before the campaign</li>
+                    <li>Outcome from the previous campaign</li>
+                    <li>Outcome of this campaign (target variable)</li>
+                </ul>
+
+                <h2 class="read-more-title">What is the model's performance and how is it measured?</h2>
+                <p class="text-start read-more-paragraph">
+                    The model selection and hyperparameters were selected using a grid search cross validation.<br>
+                    The model trainig and metrics are obtained using a train/test split are the following: <br>
+                </p>
+                <ul class="text-start read-more-paragraph">
+                    <li><strong>Accuracy score:</strong> 79.3%</li>
+                    <li><strong>Precision score:</strong> 79.3%</li>
+                    <li><strong>Recall score:</strong> 79.4%</li>
+                    <li><strong>F1 score:</strong> 79.3%</li>
+                </ul>
+
+
+            </section>
+
+        </div>
+    </div>
 </div>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis est delectus quisquam dicta dignissimos quos
-    obcaecati consequatur voluptatem, repellendus, dolorum corrupti distinctio reiciendis illo tempore, voluptatum
-    voluptates iste consectetur similique?
-    Aut ipsam earum iure laudantium ullam ea assumenda voluptates, accusantium expedita officia omnis facilis eius
-    quod laborum debitis tempora molestias sapiente reiciendis. Suscipit maxime consequatur, exercitationem quisquam
-    libero mollitia facere.
-    Hic accusantium fugiat commodi ullam magnam sequi, cumque numquam eligendi illum voluptas asperiores nam quos
-    autem aperiam sed! Magni, et cupiditate non eaque tenetur asperiores illum facere eos doloremque laudantium!
-    Quia ducimus molestiae numquam facere nemo sequi quas iure maxime incidunt iste, enim officiis dignissimos
-    asperiores, praesentium quaerat vel repellat ad eos labore. Pariatur nemo at esse atque nulla accusantium.
-    Esse officiis cumque placeat est sunt nulla autem perspiciatis perferendis, praesentium nemo aut ducimus dicta,
-    et iure ad deleniti voluptas! Ullam quam eos modi saepe, repudiandae ab aperiam recusandae accusantium!
-    Itaque iusto velit cupiditate quaerat. Esse at delectus nam aliquid debitis pariatur id ratione temporibus rem
-    ea ab cupiditate ipsum labore, accusamus modi a eveniet fuga quidem quia suscipit ipsam.
-    Nemo doloribus accusantium illum, nobis laudantium necessitatibus tenetur nulla eligendi molestiae praesentium
-    rem incidunt sapiente, reiciendis iste quidem ratione temporibus perferendis voluptates ut repudiandae.
-    Cupiditate quo soluta ipsum ipsa id.
-    Est quae ad ab, quasi doloremque amet dolores velit numquam exercitationem ut cumque sit commodi? Fugiat libero,
-    neque sit dolorum, autem incidunt ipsum facere fugit deleniti, hic ducimus magnam repellat?
-    Magni voluptate, illum dolores veniam error sequi, quam rem a natus exercitationem in maxime unde nisi,
-    accusamus mollitia neque vel praesentium tempora inventore dolorem doloribus. Blanditiis culpa non optio amet!
-    Aut at consectetur voluptatibus nulla officia molestias quis laudantium quisquam nihil, voluptate aliquam sint
-    odit et ad exercitationem odio laborum repellendus architecto qui unde fugit, dolorum harum libero! Non,
-    ratione?</p>
-</div>
+
+
 {% endblock %}
