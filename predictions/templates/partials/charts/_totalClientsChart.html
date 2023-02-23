@@ -1,0 +1,55 @@
+<canvas id="totalClientsChart">
+    <script>
+        var ctx = document.getElementById('totalClientsChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Predicted Outcome'],
+                datasets: [{
+                    label: 'Will Subscribe',
+                    data: JSON.parse('{{number_of_yes_clients|escapejs}}'),
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                    ],
+                    borderWidth: 1,
+                    stack: 'Stack 0'
+
+                },
+                {
+                    label: 'Will Not Subscribe',
+                    data: JSON.parse('{{number_of_no_clients|escapejs}}'),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1,
+                    stack: 'Stack 1'
+
+                }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        },
+                    },
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Number of Clients'
+                    },
+                }
+
+            }
+        });
+    </script>
+</canvas>

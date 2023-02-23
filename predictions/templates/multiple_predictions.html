@@ -7,6 +7,13 @@
             {% include 'partials/_navscroller.html' %}
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1 class="predictions-title">Multiple Predictions</h1>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-4 offset-md-4">
             <form method="POST" action="" enctype="multipart/form-data">
@@ -23,30 +30,43 @@
         </div>
     </div>
 </div>
-{% if data %}
+{% if number_of_yes_clients and number_of_no_clients %}
 <div class="row mt-3">
     <div class="col-md-6 offset-md-3">
         <canvas id="multiplePredictionsChart">
             <script>
                 var ctx = document.getElementById('multiplePredictionsChart').getContext('2d');
-                var data = JSON.parse('{{data|escapejs}}')
                 var myChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: ['Yes', 'No'],
+                        labels: ['Predicted Outcome'],
                         datasets: [{
-                            label: 'Client Predictions',
-                            data: data,
+                            label: 'Will Subscribe',
+                            data: JSON.parse('{{number_of_yes_clients|escapejs}}'),
                             backgroundColor: [
                                 'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 99, 132, 0.2)',
                             ],
                             borderColor: [
                                 'rgba(54, 162, 235, 1)',
+                            ],
+                            borderWidth: 1,
+                            stack: 'Stack 0'
+        
+                        },
+                        {
+                            label: 'Will Not Subscribe',
+                            data: JSON.parse('{{number_of_no_clients|escapejs}}'),
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                            ],
+                            borderColor: [
                                 'rgba(255, 99, 132, 1)',
                             ],
-                            borderWidth: 1
-                        }]
+                            borderWidth: 1,
+                            stack: 'Stack 1'
+        
+                        }
+                        ]
                     },
                     options: {
                         scales: {
@@ -54,9 +74,16 @@
                                 beginAtZero: true,
                                 ticks: {
                                     stepSize: 1
-                                }
-                            }
+                                },
+                            },
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Number of Clients'
+                            },
                         }
+        
                     }
                 });
             </script>

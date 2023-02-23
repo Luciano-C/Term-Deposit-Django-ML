@@ -95,7 +95,7 @@ class Client(models.Model):
             raise ValidationError(errors)
         
 
-
+    # When saving the outcome of the prediction is calculated
     def save(self, *args, **kwargs):
         # Add prediction function
         # self.outcome_target = pred_func(self.age, self.job....)

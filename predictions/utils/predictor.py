@@ -1,11 +1,6 @@
 import pandas as pd
 """ test_input_dict = {'age': 58, 'job': 'management', 'marital': 'married', 'education': 'tertiary', 'default': 'no', 'balance': 2143, 'housing': 'yes', 'loan': 'no', 'contact': 'unknown', 'day': 5, 'month': 'may', 'duration': 261, 'campaign': 1, 'pdays': -1, 'previous': 0, 'poutcome': 'unknown'}
-
-
-values = [[value for value in test_input_dict.values()]]
-columns = test_input_dict.keys()
-test_input = pd.DataFrame(data=values, columns=columns) """
-
+"""
 
 
 def classification_function(input_df):
@@ -28,8 +23,6 @@ def classification_function(input_df):
     input_data_preprocessed = pd.concat([input_data_numbers_scaled, input_data_text_encoded], axis=1)
     # Prediction
     prediction = selected_model.predict(input_data_preprocessed)
-
-    
 
     if prediction[0] == 0:
         return 'no'

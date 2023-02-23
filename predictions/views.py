@@ -9,13 +9,13 @@ from django.contrib import messages
 from .models import Client
 import pandas as pd
 from datetime import datetime
-import numpy as np
 from .utils.chart_data import get_numeric_chart_data, get_categorical_chart_data
 import json
 
 
 # Create your views here.
 def home(request):
+    # Calls the webscraper
     economic_indicators = get_economic_indicators()
     return render(request, 'home.html', {
         'dollar_bid': economic_indicators['dollar']['bid'],
@@ -65,11 +65,11 @@ def signout(request):
     logout(request)
     return redirect('home')
 
-
+@login_required
 def predictions(request):
     return render(request, 'predictions.html')
 
-
+@login_required
 def single_prediction(request):
     if request.method == 'GET':
         return render(request, 'single_prediction.html', {
@@ -86,6 +86,7 @@ def single_prediction(request):
             new_client.save()
            
             try:
+                # Checks if there are any errors in the input
                 new_client.clean()
 
                 if new_client.outcome_target == 'no':
@@ -112,7 +113,7 @@ def single_prediction(request):
  
         
 
-        
+@login_required       
 def multiple_predictions(request):
     if request.method == 'GET':
         return render(request, 'multiple_predictions.html', {
@@ -130,8 +131,6 @@ def multiple_predictions(request):
                 
                 # Load data from file into dataframe with the column names
                 clients_data_from_file = pd.read_csv(file, sep=';', encoding='utf-8', names=total_columns)
-                
-                #print(clients_data_from_file.head())
                 
                 # number_of_rows and predictions for itetarion
                 number_of_rows = clients_data_from_file.shape[0]
@@ -167,10 +166,13 @@ def multiple_predictions(request):
                 clients_data_from_file['predictions'] = predictions
                 # Prepares the data for the chart as a list with ['yes', 'no'] values
                 data_for_chart = [clients_data_from_file['predictions'].value_counts()['yes'], clients_data_from_file['predictions'].value_counts()['no']]
+
+        
                 
                 return render(request, 'multiple_predictions.html', {
                 'form': form,
-                'data': data_for_chart
+                'number_of_yes_clients': [clients_data_from_file['predictions'].value_counts()['yes']],
+                'number_of_no_clients':[clients_data_from_file['predictions'].value_counts()['no']]
             })
 
             else:
@@ -186,14 +188,14 @@ def multiple_predictions(request):
             })
         
 
-
+@login_required
 def my_predictions(request):
     user_clients = Client.objects.filter(user=request.user)
     return render(request, 'my_predictions.html', {
         'user_clients': user_clients
     })
 
-
+@login_required
 def manage_client(request, client_id):
     if request.method == 'GET':
         client = get_object_or_404(Client, pk=client_id, user=request.user)
@@ -218,16 +220,13 @@ def manage_client(request, client_id):
                     'errors': form.errors
                 })
         else:
-            # Handle other POST requests here
             client = get_object_or_404(Client, pk=client_id, user=request.user)
             client.delete()
             return redirect('my_predictions')
 
-
+@login_required
 def search_clients(request):
     clients = Client.objects.filter(user=request.user)
-    print(request.GET)
-    print(request.GET['name-search'])
     
     if request.method == 'GET':
     
@@ -240,21 +239,18 @@ def search_clients(request):
         if request.GET['date-search']:
             date_search = request.GET['date-search']
             formatted_date = datetime.strptime(date_search, '%Y-%m-%d')
+            # Creates a start and end date with the same date but at 23:59:59. This is done because the date in the database is a datetimefield and this accounts for the time.
             start_date = formatted_date
             end_date = formatted_date.replace(hour=23, minute=59, second=59)
             clients = clients.filter(updated_at__range=[start_date, end_date])
-
-            
-            #formatted_date = datetime.strptime(date_search, '%Y-%m-%d').strftime('%d-%m-%Y')
-              
-            
+    
         return render(request,'my_predictions.html', {
         'user_clients': clients,
         'name_search_value': request.GET['name-search'],
         'outcome_search_value': request.GET['outcome-search']
     })
 
-
+@login_required
 def charts(request):
     total_clients = Client.objects.filter(user=request.user)
     
@@ -271,6 +267,10 @@ def charts(request):
     
    
     return render(request, 'charts.html',{
+        # intro
+        'number_of_clients': total_clients.count(),
+        'number_of_yes_clients': [total_clients.filter(outcome_target='yes').count()],
+        'number_of_no_clients': [total_clients.filter(outcome_target='no').count()],
         # age
         'age_labels': get_numeric_chart_data(total_clients, 'age')['labels'],
         'age_yes_count': get_numeric_chart_data(total_clients, 'age')['attribute_yes_count'],

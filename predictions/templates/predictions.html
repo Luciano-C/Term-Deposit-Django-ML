@@ -9,10 +9,15 @@
     </div>
 
     <div class="row">
+        <div class="col-md-12 text-center">
+            <h1 class="predictions-title">Predictions</h1>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col">
             <section class="text-center">
-
-                <h2 class="read-more-title">Predictions</h2>
+                <!-- Intro -->
                 <p class="text-start read-more-paragraph">Welcome to the predictions view. Here we have the following tools at your disposal:</p>
                 <ul class="text-start read-more-paragraph">
                     <li>Single Prediction</li>
@@ -21,6 +26,8 @@
                     <li>Charts</li>
                 </ul>
                 <p class="text-start read-more-paragraph">Below you will find a more detailed explanation about these and how to use them.</p>
+
+                <!-- Single Prediction -->
 
                 <h2 class="read-more-title">Single Prediction</h2>
                 <p class="text-start read-more-paragraph">You will find a form that will allow you to input the necessary data for the model to make a prediction. You will see the result in a flash message and this data will be automatically added to the database. <br>
@@ -32,7 +39,7 @@
                     <li>Type of job: Select input.</li>
                     <li>Marital Status: Select input.</li>
                     <li>Education: Select input.</li>
-                    <li>Has Credit in Default?: : Select input.</li>
+                    <li>Has Credit in Default?: Select input.</li>
                     <li>Average yearly balance: Numeric, in EUR.</li>
                     <li>Has a housing loan?: Select input.</li>
                     <li>Has a personal loan?: Select input.</li>
@@ -46,52 +53,44 @@
                     <li>Previous Outcome: Outcome from the previous campaign. Select input.</li>
                 </ul>
 
-                <!-- CONTINUE EDITING -->
-
-                <h2 class="read-more-title">What kind of data was used for the training?</h2>
-                <p class="text-start read-more-paragraph">
-                    A bank dataset from a previous marketing campaign was used which contains the following:<br>
-                <p class="text-start read-more-paragraph"><strong>Client Data:</strong><br></p>
-                <ul class="text-start read-more-paragraph">
-                    <li>Age of the client</li>
-                    <li>Type of job</li>
-                    <li>Marital Status</li>
-                    <li>Education</li>
-                    <li>If they had credit on default</li>
-                    <li>Average yearly balance</li>
-                    <li>If the had a housing loan</li>
-                    <li>If the had a personal loan</li>
-                </ul>
-                <p class="text-start read-more-paragraph"><strong>Related to last contact:</strong><br></p>
-                <ul class="text-start read-more-paragraph">
-                    <li>Contact type (cell or telephone)</li>
-                    <li>Day of the contact</li>
-                    <li>Month of the contact</li>
-                    <li>Duration of the contact</li>
-                </ul>
-
-                <p class="text-start read-more-paragraph"><strong>Other atributes:</strong><br></p>
-                <ul class="text-start read-more-paragraph">
-                    <li>Number of contacts for the campaign for each client</li>
-                    <li>Number of days passed since the contact from a previous campaign</li>
-                    <li>Number of contacts performed before the campaign</li>
-                    <li>Outcome from the previous campaign</li>
-                    <li>Outcome of this campaign (target variable)</li>
-                </ul>
-
-                <h2 class="read-more-title">What is the model's performance and how is it measured?</h2>
-                <p class="text-start read-more-paragraph">
-                    The model selection and hyperparameters were selected using a grid search cross validation.<br>
-                    The model trainig and metrics are obtained using a train/test split are the following: <br>
+                <!-- Multiple Predictions -->
+                <h2 class="read-more-title">Multiple Predictions</h2>
+                <p class="text-start read-more-paragraph">Here you will be able to oupload a csv file to do multiple predictions at the same time! 
                 </p>
-                <ul class="text-start read-more-paragraph">
-                    <li><strong>Accuracy score:</strong> 79.3%</li>
-                    <li><strong>Precision score:</strong> 79.3%</li>
-                    <li><strong>Recall score:</strong> 79.4%</li>
-                    <li><strong>F1 score:</strong> 79.3%</li>
-                </ul>
+                <p class="text-start read-more-paragraph">Keep in mind that the csv file should be separated by <strong>";"</strong> and should look like this: 
+                </p>
+                
+                <img src="{% static 'images/multiple_predictions.JPG' %}" alt="full_name;age;job;marital;education;default;balance;housing;loan;contact;day;month;duration;campaign;pdays;previous;poutcome" class="mt-2">
 
+                <p class="text-start read-more-paragraph mt-3">The multiple predictions will be saved in the database. 
+                </p>
 
+                <!-- My Predictions -->
+
+                <h2 class="read-more-title">My Predictions</h2>
+                <p class="text-start read-more-paragraph">
+                    Here there is a table with the client information of every record in the database.
+                </p>
+                <p class="text-start read-more-paragraph">
+                    On the column "actions" there is a link that will allow to see all the information of the client, edit and delete it from the database.
+                </p>
+                <p class="text-start read-more-paragraph">
+                    There are also search bars that will allow to filter the table by name, last date the record was updated (useful if you just want to see the latest predictions) and based on whether the client is likely to subscribe or not.
+                </p>
+                
+
+                <!-- Charts -->
+
+                <h2 class="read-more-title">Charts</h2>
+                <p class="text-start read-more-paragraph">
+                    Here you will find charts for every column. On most of the charts the values have been separated by clients who are predicted to take the term deposit and clients who won't, allowing to easily get some insights.
+                </p>
+                <p class="text-start read-more-paragraph">
+                    <i>
+                        Note: For the charts age, balance and duration the labels mean clients between the last label and current one.
+                    </i>
+                </p>
+            
             </section>
 
         </div>

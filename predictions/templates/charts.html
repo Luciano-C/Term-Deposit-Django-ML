@@ -2,12 +2,33 @@
 {% load static %}
 
 {% block content %}
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-10 offset-md-1">
             {% include 'partials/_navscroller.html' %}
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1 class="predictions-title">Charts</h1>
+        </div>
+    </div>
+
+
+<!-- Intro and client distribution chart -->
+<div class="row mt-3">
+    <div class="col-md-4 offset-md-2">
+        <p class="predictions-paragraph">Here you will find charts for every column. On most charts, the values have been separated by clients who are predicted to take the term deposit and clients who won't. The charts use different colors to represent these two groups of clients, making it easy to compare the differences between them at a glance.</p>
+        <p class="predictions-paragraph"><strong>Total number of clients: </strong>{{number_of_clients}}</p>
+    </div>
+
+
+    <div class="col-md-4 ms-5">
+        {% include 'partials/charts/_totalClientsChart.html' %}
+    </div>
+</div>    
 
 <!-- 1st row of charts -->
     <div class="row mt-3">

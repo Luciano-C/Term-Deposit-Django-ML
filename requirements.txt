@@ -8,7 +8,9 @@ attrs==22.2.0
 backcall==0.2.0
 beautifulsoup4==4.11.1
 bleach==6.0.0
+certifi==2022.12.7
 cffi==1.15.1
+charset-normalizer==3.0.1
 colorama==0.4.6
 comm==0.1.2
 contourpy==1.0.7
@@ -44,6 +46,7 @@ jupyter_server_terminals==0.4.4
 jupyterlab-pygments==0.2.2
 jupyterlab-widgets==3.0.5
 kiwisolver==1.4.4
+lxml==4.9.2
 MarkupSafe==2.1.2
 matplotlib==3.6.3
 matplotlib-inline==0.1.6
@@ -82,6 +85,7 @@ PyYAML==6.0
 pyzmq==25.0.0
 qtconsole==5.4.0
 QtPy==2.3.0
+requests==2.28.2
 rfc3339-validator==0.1.4
 rfc3986-validator==0.1.1
 scikit-learn==1.2.1
@@ -100,6 +104,7 @@ tornado==6.2
 traitlets==5.9.0
 tzdata==2022.7
 uri-template==1.2.0
+urllib3==1.26.14
 wcwidth==0.2.6
 webcolors==1.12
 webencodings==0.5.1

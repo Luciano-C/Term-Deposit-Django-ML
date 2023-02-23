@@ -47,7 +47,6 @@ class ClientForm(forms.ModelForm):
         }
 
 class UploadClientsForm(forms.Form):
-    #file = forms.FileField(widget=forms.ClearableFileInput(attrs={'class': 'form-control mb-2'}))
     file = forms.FileField(widget=forms.ClearableFileInput(attrs={'class': 'form-control mb-2 mt-3'}), label='')
     
     def clean_file(self):

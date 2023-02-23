@@ -7,6 +7,14 @@
             {% include 'partials/_navscroller.html' %}
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1 class="predictions-title">My Predictions</h1>
+        </div>
+    </div>
+
+
     <div class="row">
         <form action="{% url 'search_clients' %}" method="GET">
 
@@ -54,10 +62,6 @@
                             <th scope="col">Housing</th>
                             <th scope="col">Loan</th>
                             <th scope="col">Contact</th>
-
-
-
-                            <!-- <th scope="col" style="width:15%;">Actions</th> -->
                         </tr>
                     </thead>
                     <tbody class="text-center">
@@ -80,7 +84,6 @@
 
                         </tr>
                         {% endfor %}
-
                     </tbody>
                 </table>
             </div>

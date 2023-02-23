@@ -138,3 +138,13 @@
 .form-button {
   width: 7em;
 }
+
+.predictions-title {
+  font-family: var(--default-font-family);
+  color: var(--royal-blue);
+  margin-top: 0em;
+}
+
+.predictions-paragraph {
+  font-family: var(--default-font-family);
+}
