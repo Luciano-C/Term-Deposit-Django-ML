@@ -18,7 +18,7 @@ def classification_function(input_df):
     input_data_text_encoded = pd.DataFrame()
     for index, encoder in enumerate(text_encoders):
         column_name = input_data_text.columns[index]
-        input_data_text_encoded[column_name] = encoder.fit_transform(input_data_text.iloc[:, index])
+        input_data_text_encoded[column_name] = encoder.transform(input_data_text.iloc[:, index])
     # Concatenating text and numbers
     input_data_preprocessed = pd.concat([input_data_numbers_scaled, input_data_text_encoded], axis=1)
     # Prediction
