@@ -1,7 +1,6 @@
 from django.db import models
 from authuser.models import User
-from django.core.exceptions import ValidationError
-from django.core.validators import MaxValueValidator, MinValueValidator 
+from django.core.exceptions import ValidationError 
 import pandas as pd
 from .utils.predictor import classification_function 
 from .utils.form_validations import *
