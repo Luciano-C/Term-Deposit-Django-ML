@@ -26,11 +26,6 @@ poutcome_choices = [(item, item) for item in possible_choices['possible_poutcome
 binary_choices = [('yes', 'yes'), ('no', 'no')]
 
 
-
-
-
-
-
 # Create your models here.
 class Client(models.Model):
     full_name = models.CharField(max_length=100)
