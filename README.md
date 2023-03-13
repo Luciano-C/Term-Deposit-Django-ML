@@ -1,6 +1,6 @@
 ## <ins>About this project</ins>
-This project aims to practice some of the things I have been learning lately about Machine Learning, and being able to integrate those into more complex Django app.  
-This project has helped me learn and practice several important skills, such as:
+This project aims to practice some of the things I have been learning lately about Machine Learning, and being able to integrate those into more complex Django app. 
+During this project, I have acquired and practiced various important skills including:
 <ul>
     <li>Some exploratory data analysis using plots.</li>
     <li>Model selection and hyperparameter tuning using grid search with cross validation.</li>
